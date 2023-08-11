@@ -82,15 +82,15 @@ RULE_4="FORWARD -i ${INTERNET_IF} -o ${INTERFACE} -m state --state RELATED,ESTAB
 RULE_5="FORWARD -i ${INTERFACE} -o ${INTERNET_IF} -j ACCEPT"
 
 echo "Deleting iptables"
-iptables -v -t nat -D $(echo ${RULE_3})
-iptables -v -D $(echo ${RULE_4})
-iptables -v -D $(echo ${RULE_5})
+iptables-nft -v -t nat -D $(echo ${RULE_3})
+iptables-nft -v -D $(echo ${RULE_4})
+iptables-nft -v -D $(echo ${RULE_5})
 
 if test ${ALLOW_INTERNET} = true; then
     echo "Configuring iptables for NAT"
-    iptables -v -t nat -A $(echo ${RULE_3})
-    iptables -v -A $(echo ${RULE_4})
-    iptables -v -A $(echo ${RULE_5})
+    iptables-nft -v -t nat -A $(echo ${RULE_3})
+    iptables-nft -v -A $(echo ${RULE_4})
+    iptables-nft -v -A $(echo ${RULE_5})
 fi
 
 
